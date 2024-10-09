@@ -1,0 +1,18 @@
+////////////////////////////////////////////////////////////////////////////////
+/// \file
+/// \brief      Main module for Contest X Problem Y
+/// \author     Student's Name
+/// \version    0.1.0
+/// \date       25.01.2021
+///
+/// Copy the task description here.
+///
+////////////////////////////////////////////////////////////////////////////////
+
+
+int main()
+{
+    // TODO: provide your solution here.
+
+    return 0;
+}

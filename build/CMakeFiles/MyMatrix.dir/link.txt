@@ -1,0 +1,1 @@
+/opt/homebrew/opt/llvm/bin/clang++ -g -O0 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/MyMatrix.dir/main.cpp.o CMakeFiles/MyMatrix.dir/matrix.cpp.o -o MyMatrix

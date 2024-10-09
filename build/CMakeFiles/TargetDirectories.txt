@@ -1,0 +1,3 @@
+/Users/student/Downloads/code/build/CMakeFiles/MyMatrix.dir
+/Users/student/Downloads/code/build/CMakeFiles/edit_cache.dir
+/Users/student/Downloads/code/build/CMakeFiles/rebuild_cache.dir
