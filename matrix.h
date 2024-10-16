@@ -3,16 +3,56 @@
 
 #include <cstddef>
 
+extern int GLOBAL;
+
 class Matrix {
    
 public:
     // конструктор и декстурктор единственные ничего не возвращают
-    Matrix() 
+    Matrix()  
+        : storage_(nullptr),
+          row_count_(0),
+          column_count_(0)
     {
         //Работать будет, но в целом это не правильно
-        storage_ = nullptr;
-        row_count_ = 0;
-        column_count_ = 0;
+        // storage_ = nullptr;
+        // В явном случае this нужен тогда, когда никак без него нельзя обойтись
+        // this->storage_ = nullptr; // на самом деле это так, но комплитор умеет догадыватся до таких вещей
+        // this это T* const 
+        // row_count_ = 0;
+        // column_count_ = 0;
+    }
+    // Matrix(int dummy)
+    // // Чисто поиграться
+    // Matrix(int& dummy)  
+    //     // : dummy_(dummy)
+    //     : dummy_{dummy}
+    //     // : dummy_(GLOBAL) 
+    // {
+    //     // мы здесь через имя dummy_ пытаемся записать новое значение обьекту, которое вообще не привязали
+    //     //инициализация здесь слишком поздно
+    //     // dummy_ = dummy;
+    // }
+
+public:
+// Правило, если метод класса не изменяет состояние инстанс, он обязан быть объявлен константным
+    size_t GetRowCount() const {
+        // попытка через конст указатель изменить intance будет забанено компилятором
+        this->row_count_ = 0;
+        GetColumnCount();
+        return row_count_;
+    }
+
+    size_t GetColumnCount() {
+        this->row_count_ = 0;
+        // все ок, т.к. константый метод ничего не изменит, но 
+        GetRowCount();
+        return column_count_;
+    }
+
+    //readable, but not writable 
+    const double* GetStorage() {
+        return storage_;
     }
     
 private:
@@ -28,7 +68,23 @@ private:
     double* storage_;
     size_t row_count_;
     size_t column_count_;
+    // int& dummy_;
     
 };
 
 #endif
+
+
+//Константность в с++
+//Указатели бывают 4-х видов константности
+//1. RAI (Random access iterator)
+//2. лево константный указатель (const T*) readable not writable
+// Можно перемещать указатель сам объект изменить нельзя, а указатель можно менять (двигать туда-сюда например)
+//3. право константный указатель (T* const)
+// можно изменять объект, а указатель менять нельзя
+//4. Лево-Правый указатель (const T* const)
+// нельзя менять объект, указатель тоже, только читать
+
+// Можно писать (const T*) == (T const*)
+
+// С ссылками всё тоже самое (почти) все ссылки право константные по умолчанию

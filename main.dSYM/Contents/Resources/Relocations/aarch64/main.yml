@@ -1,0 +1,13 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/student/Downloads/code/main'
+relocations:
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: __Z5test1v, symObjAddr: 0x0, symBinAddr: 0x100003D90, symSize: 0xC0 }
+  - { offset: 0x41, size: 0x8, addend: 0x0, symName: __Z5test1v, symObjAddr: 0x0, symBinAddr: 0x100003D90, symSize: 0xC0 }
+  - { offset: 0x11F, size: 0x8, addend: 0x0, symName: __ZN6MatrixC1Ev, symObjAddr: 0xC0, symBinAddr: 0x100003E50, symSize: 0x2C }
+  - { offset: 0x147, size: 0x8, addend: 0x0, symName: __ZN6Matrix14GetColumnCountEv, symObjAddr: 0xEC, symBinAddr: 0x100003E7C, symSize: 0x18 }
+  - { offset: 0x16B, size: 0x8, addend: 0x0, symName: __ZN6Matrix11GetRowCountEv, symObjAddr: 0x104, symBinAddr: 0x100003E94, symSize: 0x18 }
+  - { offset: 0x18F, size: 0x8, addend: 0x0, symName: __ZN6Matrix10GetStorageEv, symObjAddr: 0x11C, symBinAddr: 0x100003EAC, symSize: 0x18 }
+  - { offset: 0x1B3, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x134, symBinAddr: 0x100003EC4, symSize: 0x2C }
+  - { offset: 0x1CC, size: 0x8, addend: 0x0, symName: __ZN6MatrixC2Ev, symObjAddr: 0x160, symBinAddr: 0x100003EF0, symSize: 0x20 }
+...
