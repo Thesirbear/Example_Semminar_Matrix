@@ -22,6 +22,14 @@ public:
         // row_count_ = 0;
         // column_count_ = 0;
     }
+
+    Matrix(size_t row_count, size_t column_count);
+
+    // TODO: как избавиться от конструктора по умолчанию и использовать 26? 
+    // TODO: реализовать этот конструктор
+    Matrix(size_t row_count, size_t column_count, double def);
+
+    ~Matrix();
     // Matrix(int dummy)
     // // Чисто поиграться
     // Matrix(int& dummy)  
@@ -35,26 +43,101 @@ public:
     // }
 
 public:
-// Правило, если метод класса не изменяет состояние инстанс, он обязан быть объявлен константным
+    class Row {
+        friend Matrix;
+    public:
+        // Row();
+        // Row(size_t pos, double* storage) :
+        // {
+
+        // }
+    private:
+    // В том случае когда нужно будет инит левоконст указ
+    // на матрицу этот указ некуда будет засунуть в этом классе
+    // 
+        Row(Matrix* owner, size_t pos) 
+            :owner_(owner),
+             pos_(pos)
+        {
+
+        }
+    public:
+    // TODO: константную перегрузку см. константную пер
+        double& operator[](size_t pos) {
+           return owner_->at(pos_, pos);
+        }
+    private:
+        size_t pos_;
+        // такой вариант возможен, но он отрывает строку от матрицы
+        // double* row_storage_;
+        // Здесь можно создать указатель на матрицу
+        // Мы добавляем один уровень косвенности
+        Matrix* owner_;
+    };
+
+
+public:
+// // Правило, если метод класса не изменяет состояние инстанс, он обязан быть объявлен константным
+//     size_t GetRowCount() const {
+//         // попытка через конст указатель изменить intance будет забанено компилятором
+//         this->row_count_ = 0;
+//         GetColumnCount();
+//         return row_count_;
+//     }
+
+//     size_t GetColumnCount() {
+//         this->row_count_ = 0;
+//         // все ок, т.к. константый метод ничего не изменит, но 
+//         GetRowCount();
+//         return column_count_;
+//     }
+    // double* 
+    // Изолируем арифметику перемещения по нашей матрице
+    // TODO: константая перегрузка для квадратных скобки для Row
+    Row operator[](size_t i) const {
+
+    } 
+    // TODO: константный row
+    Row operator[](size_t i) {
+        return Row(this, i);
+    }
+
+
+    size_t GetOffset(size_t i, size_t j) const {
+        return i * column_count_ + j;
+    }
+
+    double& Getelem(size_t i, size_t j) {
+        // return storage_[i * column_count_ + j];
+       return storage_[GetOffset(i, j)];
+    }
+    
+    // Константная перегрузка типа POD, действительно лучше вернуть копию, но при переходе в соотвествии к 7
+    // заменим double на const T&  
+    double Getelem(size_t i, size_t j) const {
+        // return storage_[i * column_count_ + j];
+       return storage_[GetOffset(i, j)];
+    }    
+    // TODO: тоже самое для at
+    double& at(size_t i, size_t j);
+
+// Правило, если метод класса не изменяет состояние инстанс, он обязан быть объявлен константным    
     size_t GetRowCount() const {
         // попытка через конст указатель изменить intance будет забанено компилятором
-        this->row_count_ = 0;
-        GetColumnCount();
         return row_count_;
     }
 
-    size_t GetColumnCount() {
-        this->row_count_ = 0;
-        // все ок, т.к. константый метод ничего не изменит, но 
-        GetRowCount();
+    size_t GetColumnCount() const {
         return column_count_;
     }
 
     //readable, but not writable 
-    const double* GetStorage() {
+    const double* GetStorage() const {
         return storage_;
     }
-    
+
+
+
 private:
     // default constructor exist
     // для new Matrix[] обязательно должен быть констуктор по умолчанию либо его суррогат(компилятор?)

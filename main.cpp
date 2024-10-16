@@ -41,6 +41,7 @@
 /// В программе удаляется только указатель(ключ) на объект(квартиру) в динамической памяти
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <stdexcept>
 #include <cassert>
 
 #include "matrix.h"
@@ -58,6 +59,7 @@ void PrintMatrix(const Matrix& m) {
     // Предположим это внутри for встречается
     // Любой метод в классе, который не объявлен не статически, он не явным образом получает метод this
     m.GetColumnCount();
+    m.Getelem(0, 0);
 }
 
 void test2() {
@@ -65,9 +67,32 @@ void test2() {
     PrintMatrix(m);
 }
 
+void test3() {
+    Matrix m(4, 3);
+    assert(m.GetColumnCount() == 4);
+    assert(m.GetRowCount() == 3);
+    assert(m.GetStorage() != nullptr);
+}
+
+void test4() {
+    // Проверим что at действительно кидает исключение
+    Matrix m(5, 4);
+    bool exception_raised = false;
+    try {
+        m.at(6, 6);
+    } catch(std::out_of_range& e){
+        exception_raised = true;
+    }
+    assert(exception_raised == true);
+}
+
 int main()
 {
     // TODO: provide your solution here.    
     test1();
+    test2();
+    test3();
+    test4();
+    // TODO: Проверить at, Getelem отдельными тестами
     return 0;
 }
